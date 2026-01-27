@@ -1,0 +1,402 @@
+---
+---
+
+/* Base theme (minima) */
+@import "minima";
+
+/* ========= Bloomberg-ish terminal palette ========= */
+:root {
+  --bg: #000000;
+
+  --bb-orange: #f2a300;        /* Bloomberg main text */
+  --bb-orange-dim: #c98a00;
+
+  --bb-search-orange: #f2a300; /* 🔴 ADD THIS (search box background) */
+
+  --yellow: #ffd400;           /* <GO> key */
+  --white: #ffffff;
+
+  --rule: #2a2a2a;
+  --red: #7a0000;
+}
+
+
+
+/* ========= Global reset-ish ========= */
+html, body {
+  background: var(--bg);
+  color: var(--bb-orange);
+}
+
+/* Typography: terminal vibe */
+body {
+  font-family: "IBM Plex Mono", Consolas, Menlo, Monaco, "Courier New", monospace;
+  font-size: 18px;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Keep content readable width */
+.wrapper {
+  max-width: 980px;
+}
+
+/* Default links across site = yellow */
+a, a:visited {
+  color: var(--bb-orange);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* Remove minima header/footer visuals (we’re replacing header) */
+.site-header,
+.site-footer {
+  display: none;
+}
+
+/* Page spacing */
+.page-content {
+  padding: 14px 0 80px;
+}
+
+/* Optional subtle scanline overlay */
+html::after {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 212, 0, 0.03),
+    rgba(255, 212, 0, 0.03) 1px,
+    rgba(0, 0, 0, 0) 3px,
+    rgba(0, 0, 0, 0) 6px
+  );
+  mix-blend-mode: soft-light;
+  opacity: 0.25;
+}
+
+/* ========= Custom Bloomberg-style header ========= */
+.bb-header2 {
+  position: sticky;
+  top: 0;
+  z-index: 300;
+  background: var(--bg);
+}
+
+/* Big “logo” top-left */
+.bb-brandwrap {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 14px 24px 8px;
+}
+
+.bb-brand2,
+.bb-brand2:visited {
+  color: var(--white) !important; /* hard override against global link rules */
+  text-decoration: none;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  font-size: 40px;
+  line-height: 1;
+}
+
+.bb-brand2:hover {
+  text-decoration: none;
+  opacity: 0.95;
+}
+
+/* Bar row */
+.bb-bar2 {
+  background: var(--bg);
+  border-bottom: 0;
+}
+
+.bb-bar2__inner {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: stretch;
+  height: 38px; /* 🔼 was 28px */
+}ss
+
+/* Orange search box */
+.bb-search2 {
+  flex: 1; /* or 1/4 ratio as you set */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: var(--bb-search-orange);
+  color: #000 !important;
+
+  font-size: 18px;      /* 🔼 bigger text */
+  font-weight: 900;     /* 🔼 bold like terminal input */
+  letter-spacing: 0.4px;
+
+  padding: 0 14px;      /* 🔼 more breathing room */
+  height: 100%;
+  white-space: nowrap;
+}
+
+.bb-search2__text {
+  color: #000 !important;
+}
+
+.bb-search2__go {
+  background: var(--yellow);
+  color: #000 !important;
+  font-weight: 900;
+
+  font-size: 15px;      /* 🔼 bigger */
+  padding: 4px 8px;     /* 🔼 keycap feel */
+  line-height: 1;
+}
+
+/* Red bar area (fills to edge) */
+.bb-redfill2 {
+  background: var(--red);
+  flex: 3;              /* takes 2/3 */
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+}
+
+
+/* White nav link + separator like “|” */
+.bb-redlink2,
+.bb-redlink2:visited {
+  color: var(--white) !important;
+  font-weight: 800;
+  font-size: 15px;      /* 🔼 match bar scale */
+  letter-spacing: 0.5px;
+  text-decoration: none;
+}
+
+/* The separator */
+.bb-redlink2::before {
+  content: "|";
+  position: absolute;
+  left: 0;
+  color: var(--white);
+  opacity: 0.9;
+}
+
+.bb-redlink2:hover {
+  text-decoration: underline;
+}
+
+/* ========= Homepage post list formatting ========= */
+/* Terminal-style post panels */
+.post-list > li {
+  border: 0;
+  padding: 0;
+  margin: 14px 0;
+  background: transparent;
+}
+
+/* The panel body */
+.post-list > li > .post-meta,
+.post-list > li > a.post-link,
+.post-list > li > div {
+  /* nothing here; we’ll style the inner pieces explicitly */
+}
+
+/* Wrap effect: use the <li> as a positioning context */
+.post-list > li {
+  position: relative;
+}
+
+/* Grey box panel behind each post */
+.post-list > li::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 12px;              /* leaves room for the tab */
+  bottom: 0;
+  background: #141414;    /* panel grey */
+  border: 1px solid #2a2a2a;
+  border-radius: 2px;
+  z-index: 0;
+}
+
+/* Date tab */
+.post-meta {
+  position: relative;
+  z-index: 1;
+
+  display: inline-block;
+  margin: 0 0 0 0;
+  padding: 3px 10px;
+
+  background: #1f1f1f;      /* slightly lighter than the panel */
+  border: 1px solid #2a2a2a;
+  border-bottom: 0;         /* makes it feel like a tab attached to panel */
+  border-radius: 2px 2px 0 0;
+
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+
+  /* aligns tab to the left edge of the panel */
+  transform: translateY(12px);
+}
+
+/* Title inside the panel */
+.post-link {
+  position: relative;
+  z-index: 1;
+
+  display: block;
+  padding: 18px 14px 14px;  /* top padding accounts for tab */
+  margin-top: 0;
+
+  font-size: 19px;
+  font-weight: 700;
+}
+
+/* Post pages */
+.post-title {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+/* Code blocks */
+pre, code {
+  font-family: inherit;
+  background: #0a0a0a;
+  color: var(--yellow);
+}
+pre {
+  border: 1px solid var(--rule);
+}
+
+/* Quotes & rules */
+blockquote {
+  color: var(--muted-yellow);
+  border-left: 2px solid var(--rule);
+}
+hr {
+  border: 0;
+  border-top: 1px solid var(--rule);
+}
+
+/* ===== HARD OVERRIDES: keep the LOSS search orange + readable ===== */
+.bb-bar2__inner {
+  height: 38px !important; /* bigger bar */
+}
+
+.bb-search2 {
+  background-color: var(--bb-search-orange) !important; /* orange box */
+  color: #000 !important;                               /* LOSS in black */
+  font-size: 18px !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.4px !important;
+  padding: 0 14px !important;
+}
+
+.bb-search2__text {
+  color: #000 !important;
+  font-weight: 900 !important;
+}
+
+.bb-search2__go {
+  background-color: var(--yellow) !important;
+  color: #000 !important;
+  font-size: 15px !important;
+  font-weight: 900 !important;
+  padding: 4px 8px !important;
+  border-radius: 2px;
+}
+
+/* ===== FIX HEADER ALIGNMENT + RATIOS + HOME SEPARATOR ===== */
+
+/* Keep the bar height and make all children center nicely */
+.bb-bar2__inner {
+  height: 38px !important;
+  display: flex !important;
+  align-items: stretch !important;
+}
+
+/* 1/4 orange, 3/4 red */
+.bb-search2 {
+  flex: 1 0 0 !important;                 /* 1 part */
+  display: flex !important;
+  align-items: center !important;         /* vertical center */
+  justify-content: space-between !important;
+  gap: 12px !important;
+
+  background-color: var(--bb-search-orange) !important;
+  color: #000 !important;
+
+  font-size: 18px !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.4px !important;
+  padding: 0 14px !important;
+  height: 100% !important;
+}
+
+/* Ensure LOSS and <GO> are vertically centered */
+.bb-search2__text {
+  color: #000 !important;
+  font-weight: 900 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  line-height: 1 !important;
+}
+
+.bb-search2__go {
+  background-color: var(--yellow) !important;
+  color: #000 !important;
+  font-size: 15px !important;
+  font-weight: 900 !important;
+
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  padding: 4px 10px !important;
+  border-radius: 2px !important;
+  line-height: 1 !important;
+}
+
+/* Red area takes 3/4 */
+.bb-redfill2 {
+  flex: 3 0 0 !important;                 /* 3 parts */
+  display: flex !important;
+  align-items: center !important;         /* vertical center */
+  height: 100% !important;
+  background: var(--red) !important;
+  padding: 0 12px !important;
+}
+
+/* Restore HOME separator " | " */
+.bb-redlink2,
+.bb-redlink2:visited {
+  color: var(--white) !important;
+  font-weight: 800 !important;
+  font-size: 15px !important;
+  letter-spacing: 0.5px !important;
+  text-decoration: none !important;
+
+  position: relative !important;
+  padding-left: 14px !important;          /* room for | */
+  line-height: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+.bb-redlink2::before {
+  content: "|" !important;
+  position: absolute !important;
+  left: 0 !important;
+  color: var(--white) !important;
+  opacity: 0.95 !important;
+}
+
