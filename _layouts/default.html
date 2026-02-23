@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% include head.html %}
+
+  <body>
+    {% include header.html %}
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        {{ content }}
+      </div>
+    </main>
+
+    <!-- Subscribe Modal (works site-wide) -->
+    <div id="subscribe-modal" class="bb-modal" aria-hidden="true">
+      <a href="#" class="bb-modal__overlay" aria-label="Close"></a>
+
+      <div class="bb-modal__dialog" role="dialog" aria-modal="true" aria-label="Subscribe">
+        <div class="bb-modal__title">Subscribe</div>
+
+        <form
+          class="bb-modal__form"
+          action="https://buttondown.com/api/emails/embed-subscribe/YOUR_BUTTONDOWN_USERNAME"
+          method="post"
+          target="popupwindow"
+          onsubmit="window.open('https://buttondown.com/YOUR_BUTTONDOWN_USERNAME', 'popupwindow')"
+        >
+          <input
+            class="bb-modal__input"
+            type="email"
+            name="email"
+            placeholder="Email…"
+            required
+          />
+
+          <button class="bb-modal__btn" type="submit">
+            Submit <span class="bb-modal__go">&lt;GO&gt;</span>
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </body>
+</html>
