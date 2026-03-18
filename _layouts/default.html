@@ -11,34 +11,89 @@
       </div>
     </main>
 
-    <!-- Subscribe Modal (works site-wide) -->
+    <!-- Subscribe Modal -->
     <div id="subscribe-modal" class="bb-modal" aria-hidden="true">
       <a href="#" class="bb-modal__overlay" aria-label="Close"></a>
 
       <div class="bb-modal__dialog" role="dialog" aria-modal="true" aria-label="Subscribe">
         <div class="bb-modal__title">Subscribe</div>
 
-        <form
-          class="bb-modal__form"
-          action="https://buttondown.com/api/emails/embed-subscribe/YOUR_BUTTONDOWN_USERNAME"
-          method="post"
-          target="popupwindow"
-          onsubmit="window.open('https://buttondown.com/YOUR_BUTTONDOWN_USERNAME', 'popupwindow')"
-        >
+        <form class="bb-modal__form" id="subscribe-form">
           <input
             class="bb-modal__input"
             type="email"
             name="email"
-            placeholder="Email…"
+            id="subscribe-email"
+            placeholder="Email..."
             required
           />
 
-          <button class="bb-modal__btn" type="submit">
+          <button class="bb-modal__btn" type="submit" id="subscribe-submit">
             Submit <span class="bb-modal__go">&lt;GO&gt;</span>
           </button>
         </form>
+
+        <div class="bb-modal__status" id="subscribe-status" aria-live="polite"></div>
       </div>
     </div>
 
+    <script>
+      (function () {
+        const form = document.getElementById("subscribe-form");
+        const emailInput = document.getElementById("subscribe-email");
+        const submitButton = document.getElementById("subscribe-submit");
+        const statusBox = document.getElementById("subscribe-status");
+
+        if (!form || !emailInput || !submitButton || !statusBox) return;
+
+        const endpoint = "https://yimgtx98zj.execute-api.eu-north-1.amazonaws.com/subscribe";
+
+        function setStatus(message, type) {
+          statusBox.textContent = message;
+          statusBox.classList.remove("is-success", "is-error", "is-loading");
+          if (type) statusBox.classList.add(type);
+        }
+
+        form.addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const email = emailInput.value.trim();
+          if (!email) {
+            setStatus("Enter a valid email address.", "is-error");
+            return;
+          }
+
+          submitButton.disabled = true;
+          setStatus("Submitting...", "is-loading");
+
+          try {
+            const response = await fetch(endpoint, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({ email })
+            });
+
+            let data = {};
+            try {
+              data = await response.json();
+            } catch (_) {}
+
+            if (!response.ok) {
+              const errorMessage = data.error || data.message || "Subscription failed.";
+              throw new Error(errorMessage);
+            }
+
+            setStatus("Subscribed successfully.", "is-success");
+            form.reset();
+          } catch (error) {
+            setStatus(error.message || "Something went wrong. Please try again.", "is-error");
+          } finally {
+            submitButton.disabled = false;
+          }
+        });
+      })();
+    </script>
   </body>
 </html>

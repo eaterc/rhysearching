@@ -1,0 +1,20 @@
+name: Email new posts
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Python deps
+        run: pip install feedparser requests
+
+      - name: Send latest post email
+        env:
+          POSTMARK_TOKEN: ${{ secrets.POSTMARK_TOKEN }}
+          FROM_EMAIL: alerts@rhysearching.com
+        run: python scripts/send_latest_post.py

@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "DISCLAIMER (READ THIS BEFORE YOU DO SOMETHING STUPID)"
+pinned: true
 date:   2026-01-27                 
 categories: update
 ---

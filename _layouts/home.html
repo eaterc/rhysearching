@@ -6,17 +6,34 @@ layout: default
   {{ content }}
 
   <ul class="post-list">
-    {% for post in site.posts %}
-      <li>
+
+    {% assign pinned_posts = site.posts | where: "pinned", true %}
+    {% assign normal_posts = site.posts | where_exp: "post", "post.pinned != true" %}
+
+    {% for post in pinned_posts %}
+      <li class="post-item pinned">
+        <div class="post-meta">
+          ★ PINNED
+        </div>
+
+        <a class="post-link" href="{{ post.url | relative_url }}">
+          {{ post.title }}
+        </a>
+      </li>
+    {% endfor %}
+
+    {% for post in normal_posts %}
+      <li class="post-item">
         <div class="post-meta">
           {{ post.date | date: "%Y-%m-%d" }}
         </div>
-        <div>
-          <a class="post-link" href="{{ post.url | relative_url }}">
-            {{ post.title | escape }}
-          </a>
-        </div>
+
+        <a class="post-link" href="{{ post.url | relative_url }}">
+          {{ post.title }}
+        </a>
       </li>
     {% endfor %}
+
   </ul>
+  
 </div>

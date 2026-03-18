@@ -38,7 +38,11 @@ body {
 
 /* Keep content readable width */
 .wrapper {
+  width: 100%;
   max-width: 980px;
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
 /* Default links across site = yellow */
@@ -508,7 +512,7 @@ hr {
   border: 1px solid rgba(0,0,0,0.35);
   border-radius: 2px;
 
-  color: var(--white);
+  color: black;
   font-family: inherit;
   font-weight: 800;
   font-size: 14px;
@@ -527,4 +531,148 @@ hr {
   font-weight: 900;
   font-size: 13px;
   line-height: 1;
+}
+
+.post-list > li.pinned {
+  border-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+.post-list > li.pinned::after {
+  border-left: 4px solid #f2a300;
+}
+
+.post-list > li.pinned .post-link,
+.post-list > li.pinned .post-meta {
+  margin-left: 10px;
+}
+
+.post-item.pinned .post-meta {
+  color: #f2a300;
+  font-weight: bold;
+}
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.bb-modal__status {
+  margin-top: 12px;
+  min-height: 18px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #999999;
+}
+
+.bb-modal__status.is-loading {
+  color: #f2a300;
+}
+
+.bb-modal__status.is-success {
+  color: #fffffe;
+}
+
+.bb-modal__status.is-error {
+  color: #ff6b6b;
+}
+
+.bb-modal__btn:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+/* screen size optimising */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.wrapper,
+.bb-brandwrap,
+.bb-bar2__inner {
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  padding-left: 16px;
+  padding-right: 16px;
+  box-sizing: border-box;
+}
+
+.post-title,
+.post-content,
+.post-content p,
+.post-content li {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+img,
+pre,
+code,
+table {
+  max-width: 100%;
+}
+
+@media (max-width: 640px) {
+
+  /* Reduce global padding */
+  .wrapper,
+  .bb-brandwrap,
+  .bb-bar2__inner {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  /* Shrink main title */
+  .bb-brand {
+    font-size: 26px;
+  }
+
+  /* Header bar tighter */
+  .bb-bar2 {
+    height: 40px;
+  }
+
+  /* LOSS box */
+  .bb-bar2__left {
+    font-size: 13px;
+    padding: 6px 8px;
+  }
+
+  /* Navigation */
+  .bb-bar2__right a {
+    font-size: 13px;
+  }
+
+  /* Post title */
+  .post-title {
+    font-size: 18px;
+    line-height: 1.1;
+  }
+
+  /* Date tab */
+  .post-meta {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+
+  /* Body text (this is key) */
+  .post-content {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  /* Reduce spacing between sections */
+  .post-content p {
+    margin-bottom: 12px;
+  }
+
+  /* Subscribe button */
+  .bb-subscribe {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
 }
