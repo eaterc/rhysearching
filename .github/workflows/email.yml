@@ -1,4 +1,4 @@
-name: Email new posts
+name: Notify Subscribers
 
 on:
   push:
@@ -7,14 +7,17 @@ on:
 jobs:
   notify:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
       - name: Install Python deps
-        run: pip install feedparser requests
+        run: pip install requests
 
-      - name: Send latest post email
+      - name: Wait for site to build
+        run: sleep 30
+
+      - name: Send latest post
         env:
-          POSTMARK_TOKEN: ${{ secrets.POSTMARK_TOKEN }}
-          FROM_EMAIL: alerts@rhysearching.com
+          NEWSLETTER_ENDPOINT: ${{ secrets.NEWSLETTER_ENDPOINT }}
         run: python scripts/send_latest_post.py
