@@ -85,8 +85,13 @@
               throw new Error(errorMessage);
             }
 
-            setStatus("Subscribed successfully.", "is-success");
-            form.reset();
+            // 👇 THIS IS WHERE THE CHANGE GOES
+            if (data.already_subscribed) {
+              setStatus("You are already subscribed.", "is-success");
+            } else {
+              setStatus("Subscribed successfully.", "is-success");
+              form.reset();
+            }
           } catch (error) {
             setStatus(error.message || "Something went wrong. Please try again.", "is-error");
           } finally {
