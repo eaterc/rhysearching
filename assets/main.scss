@@ -584,6 +584,22 @@ html, body {
   cursor: default;
 }
 
+.subscribe-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.subscribe-form input {
+  flex: 1;              /* 🔥 THIS is the key */
+  min-width: 0;         /* prevents overflow issues */
+}
+
+.subscribe-form button {
+  white-space: nowrap;  /* keeps "Submit <GO>" tight */
+}
+
 /* screen size optimising */
 *,
 *::before,
