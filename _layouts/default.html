@@ -89,7 +89,7 @@
             if (data.already_subscribed) {
               setStatus("You are already subscribed.", "is-success");
             } else {
-              setStatus("Subscribed successfully.", "is-success");
+              setStatus("Subscribed successfully. If it’s missing, check spam — the Matrix filters aggressively", "is-success");
               form.reset();
             }
           } catch (error) {
